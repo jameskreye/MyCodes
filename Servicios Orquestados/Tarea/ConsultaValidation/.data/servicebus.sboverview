@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:composite xmlns:ns="http://xmlns.oracle.com/sca/1.0">
+    <ns:reference>
+        <ns:interface src="BusinessService:LugaresVisitados/Services/SRV.0010043.lugaresVisitados_1.0"/>
+    </ns:reference>
+    <ns:reference>
+        <ns:interface src="ProxyService:ObtenerLista/Services/SRV.0010044.ObtenerLista_1.0"/>
+    </ns:reference>
+    <ns:reference>
+        <ns:interface src="BusinessService:Nacionalidad/Services/RestReference"/>
+    </ns:reference>
+</ns:composite>

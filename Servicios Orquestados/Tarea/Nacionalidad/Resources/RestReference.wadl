@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://TargetNamespace.com/RestReference_Operation1_request" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="RestReference">RestReference</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/RestReference_Operation1_request" schemaLocation="nxsd_schema1-request.xsd"/>
+        </xsd:schema>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/RestReference_Operation1_response" schemaLocation="nxsd_schema1-resp.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/test">
+         <method name="GET" soa:wsdlOperation="Operation1">
+            <request soa:paramElement="pns:test" xmlns:pns="http://TargetNamespace.com/RestReference_Operation1_request">
+               <param name="rutCliente" style="query" soa:expression="$msg.request/ns0:nacionalidadReq/ns0:rutCliente" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/xml" element="cns:test" xmlns:cns="http://TargetNamespace.com/RestReference_Operation1_response"/>
+               <representation mediaType="application/json" element="cns:test" xmlns:cns="http://TargetNamespace.com/RestReference_Operation1_response"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

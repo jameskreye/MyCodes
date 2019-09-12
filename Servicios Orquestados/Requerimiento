@@ -1,0 +1,89 @@
+
+
+Estimados,
+
+ 
+
+                Favor de construir el siguiente servicio orquestado:
+
+ 
+
+·         EL servicio debe ser síncrono (Adjunto contrato a utilizar).
+
+·         El servicio debe ser expuesto como SOAP y REST.
+
+·         El servicio debe validar su estructura tanto de entrada como de salida.
+
+·         El servicio consumirá 3 servicio (Creados por ustedes):
+
+ 
+
+1.       Proxy “ObtenerLista”, consume un backend WebService.
+
+2.       Business “LugaresVisitados”, Webservice.
+
+3.       Business “Nacionalidad”, REST.
+
+ 
+
+·         Cualquier tipo de error (menos si el canal es “LGH” y si tenemos un error “TimeOut” en el servicio “LugaresVisitados”), el servicio debe responder de forma exitosa con código “201” y glosa “Error en el flujo”.
+
+·         El servicio en su respuesta exitosa con código “00” y glosa “Ejecución exitosa”.
+
+·         Si el canal es igual a “LQH”, el servicio no debe invocar al servicio “Proxy Obtener lista” y si tenemos un error “TimeOut” en el servicio “Business Lugares visitados” debe continuar el flujo.
+
+ 
+
+ 
+
+Descripción mensajería de los servicios a consumir (En sus salidas deben tener un código y glosa):
+
+ 
+
+ 
+
+1.       Proxy “ObtenerLista”, consume un backend WebService (Crear MockService):
+
+ 
+
+-          Crear WSDL con los siguientes elementos de entrada: “rutCliente” y Salida: “ciudad” o “comuna” (dentro de listas llamadas “listaNorte”, “listaSur” y “listaCentro” (en este caso Comunas))
+
+ 
+
+2.       Business “Lugares visitados”, Webservice (Crear MockService):
+
+ 
+
+-          Crear WSDL con los siguientes elementos de entrada (Si tenemos respuesta del servicio “ObtenerLista”): “ciudad” o “comuna” (dentro de listas llamadas “listaNorte”, “listaSur” y “listaCentro” (en este caso Comunas)) y de salida: “ciudad” o “comuna” y “lugar” (dentro de listas llamadas “listaNorte”, “listaSur” y “listaCentro” (en este caso Comunas)).
+
+ 
+
+-          Crear WSDL con los siguientes elementos de entrada (Si no se invoca el servicio “ObtenerLista”): “rutCliente” y de salida: “ciudad” o “comuna” y “lugar” (dentro de listas llamadas “listaNorte”, “listaSur” y “listaCentro” (en este caso Comunas)).
+
+ 
+
+-          Las listas son opcionales.
+
+ 
+
+ 
+
+3.       Business “Nacionalidad”, REST (Crear MockService):
+
+ 
+
+-          Elementos de entrada: “rutCliente” y de salida “nacionalidad”.
+
+ 
+
+ 
+
+Nota: no importa la nomenclatura a ocupar, solamente considerar lowerCamelCase.
+
+ 
+
+Lo ideal tener construido el servicio este viernes a las 17:00 horas.
+
+ 
+
+Saludos,

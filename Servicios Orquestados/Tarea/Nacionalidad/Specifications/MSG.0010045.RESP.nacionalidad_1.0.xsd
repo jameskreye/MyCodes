@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://jm.peter.cl/NEG/nacionalidad/v/1.0"
+            targetNamespace="http://jm.peter.cl/NEG/nacionalidad/v/1.0" elementFormDefault="qualified">
+
+ <xsd:element name="nacionalidadResp" type="tns:nacionalidadRespType"/>
+  <xsd:complexType name="nacionalidadRespType">
+      <xsd:sequence>
+        <xsd:element name="nacionalidad" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+    </xsd:complexType> 
+</xsd:schema>

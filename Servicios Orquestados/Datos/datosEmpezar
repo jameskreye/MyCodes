@@ -1,0 +1,72 @@
+
+
+
+ObtenerLista
+
+namespace : http://jm.peter.cl/NEG/obtenerLista/v/1.0
+
+entrada : 
+
+Name : MSG.0010044.REQ.ObtenerLista_1.0
+
+rutCliente required
+
+salida: 
+
+Name : MSG.0010044.RESP.ObtenerLista_1.0
+
+ciudad required
+	listaNorte --- lista optional 
+	listaSur   --- lista optional
+comuna required
+	listaCentro --- lista optional 
+	
+	
+LugaresVisitados
+
+namespace : http://jm.peter.cl/NEG/lugaresVisitados/v/1.0
+
+entrada : 
+
+Name : MSG.0010043.REQ.lugaresVisitados_1.0
+
+rutCliente optional
+ciudad  optional
+	listaNorte --- lista optional 
+	listaSur   --- lista optional
+comuna optional
+	listaCentro --- lista optional 
+
+salida: 
+
+Name : MSG.0010043.RESP.lugaresVisitados_1.0
+
+ciudad required
+	listaNorte --- lista optional 
+	listaSur   --- lista optional
+comuna required
+	listaCentro --- lista optional 
+	
+
+	
+Nacionalidad
+
+namespace : http://jm.peter.cl/NEG/nacionalidad/v/1.0
+
+entrada : 
+
+Name : MSG.0010045.REQ.nacionalidad_1.0
+
+rutCliente required
+
+salida: 
+
+Name : MSG.0010045.RESP.nacionalidad_1.0
+
+nacionalidad required
+
+
+
+
+
+

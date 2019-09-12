@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="SRV.0010043.consultaValidation_1.0-REST">RestService_2</doc>
+   <grammars>
+      <xsd:schema xmlns:tns="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0" xmlns:inp1="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0" xmlns:inp2="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <xsd:import namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0" schemaLocation="../Specifications/MSG.0010043.REQ.purchaseValidation_2.0.xsd"/>
+            <xsd:import namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0" schemaLocation="../Specifications/MSG.0010043.RESP.purchaseValidation_2.0.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/purchaseValidation">
+         <method name="POST" soa:wsdlOperation="purchaseValidation">
+            <request>
+               <representation mediaType="application/json" element="cns:purchaseValidationReq" xmlns:cns="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:purchaseValidationResp" xmlns:cns="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

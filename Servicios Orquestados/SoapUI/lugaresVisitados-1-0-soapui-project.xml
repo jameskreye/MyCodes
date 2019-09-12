@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6f508858-eb13-4797-b088-6d92bbdc26ee" activeEnvironment="Default" name="lugaresVisitados_1.0" resourceRoot="" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2e4c2887-fd2c-4ae3-84d0-39381d187388" wsaVersion="NONE" name="lugaresVisitadosBinding" type="wsdl" bindingName="{http://jm.peter.cl/NEG/lugaresVisitados/v/1.0}lugaresVisitadosBinding" soapVersion="1_1" anonymous="optional" definition="file:/D:/Clientes/Peter/Tarea/LugaresVisitados/Specifications/CONT.0010043.lugaresVisitados_1.0.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\Clientes\Peter\Tarea\LugaresVisitados\Specifications\CONT.0010043.lugaresVisitados_1.0.wsdl"><con:part><con:url>file:\D:\Clientes\Peter\Tarea\LugaresVisitados\Specifications\CONT.0010043.lugaresVisitados_1.0.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="CONT.0010043.lugaresVisitados_1.0" targetNamespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" xmlns:tns="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" xmlns:inp1="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" xmlns:inp2="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" schemaLocation="MSG.0010043.REQ.lugaresVisitados_1.0.xsd"/>
+    </xsd:schema>
+    <xsd:schema>
+      <xsd:import namespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" schemaLocation="MSG.0010043.RESP.lugaresVisitados_1.0.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="lugaresVisitadosReq">
+    <wsdl:part name="lugaresVisitadosPart" element="inp1:lugaresVisitadosReq"/>
+  </wsdl:message>
+  <wsdl:message name="lugaresVisitadosResp">
+    <wsdl:part name="lugaresVisitadosPart" element="inp2:lugaresVisitadosResp"/>
+  </wsdl:message>
+  <wsdl:portType name="lugaresVisitadosPortType">
+    <wsdl:operation name="lugaresVisitados">
+      <wsdl:input message="tns:lugaresVisitadosReq"/>
+      <wsdl:output message="tns:lugaresVisitadosResp"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="lugaresVisitadosBinding" type="tns:lugaresVisitadosPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="lugaresVisitados">
+      <soap:operation style="document" soapAction="lugaresVisitados"/>
+      <wsdl:input>
+        <soap:body use="literal" namespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" namespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\D:\Clientes\Peter\Tarea\LugaresVisitados\Specifications\MSG.0010043.REQ.lugaresVisitados_1.0.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0">
+  <xsd:element name="lugaresVisitadosReq" type="tns:lugaresVisitadosReqType"/>
+  <xsd:complexType name="lugaresVisitadosReqType">
+    <xsd:sequence>
+      <xsd:element name="rutCliente" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="ciudad" type="tns:ciudadlist" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="comuna" type="tns:comunaList" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ciudadlist">
+    <xsd:sequence>
+      <xsd:element name="listaNorte" type="tns:ciudadInfo" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="listaSur" type="tns:ciudadInfo" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="comunaList">
+    <xsd:sequence>
+      <xsd:element name="listaCentro" type="tns:comunaInfo" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="comunaInfo">
+    <xsd:sequence>
+      <xsd:element name="nombreComuna" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="poblacion" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ciudadInfo">
+    <xsd:sequence>
+      <xsd:element name="nombreCiudad" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="codigoPostal" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="cantidadHabitantes" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="tipoTransporte" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>file:\D:\Clientes\Peter\Tarea\LugaresVisitados\Specifications\MSG.0010043.RESP.lugaresVisitados_1.0.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0">
+  <xsd:element name="lugaresVisitadosResp" type="tns:lugaresVisitadosRespType"/>
+  <xsd:complexType name="lugaresVisitadosRespType">
+    <xsd:sequence>
+      <xsd:element name="ciudad" type="tns:ciudadlist" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="comuna" type="tns:comunaList" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ciudadlist">
+    <xsd:sequence>
+      <xsd:element name="listaNorte" type="tns:ciudadInfo" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="listaSur" type="tns:ciudadInfo" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="comunaList">
+    <xsd:sequence>
+      <xsd:element name="listaCentro" type="tns:comunaInfo" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="comunaInfo">
+    <xsd:sequence>
+      <xsd:element name="nombreComuna" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="poblacion" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ciudadInfo">
+    <xsd:sequence>
+      <xsd:element name="nombreCiudad" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="codigoPostal" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="cantidadHabitantes" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="tipoTransporte" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://sentrapc3280:8088/mocklugaresVisitadosBinding</con:endpoint></con:endpoints><con:operation id="8b64c395-ebbc-4f2a-b6b4-1188a2e418a3" isOneWay="false" action="lugaresVisitados" name="lugaresVisitados" bindingOperationName="lugaresVisitados" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f2f8e9d2-4663-4f84-bc7c-122ed6e7dabf" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://sentrapc3280:8088/mocklugaresVisitadosBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ns:lugaresVisitadosReq>\r
+         <!--Optional:-->\r
+         <ns:rutCliente>?</ns:rutCliente>\r
+         <!--Optional:-->\r
+         <ns:ciudad>\r
+            <!--Zero or more repetitions:-->\r
+            <ns:listaNorte>\r
+               <!--Optional:-->\r
+               <ns:nombreCiudad>?</ns:nombreCiudad>\r
+               <!--Optional:-->\r
+               <ns:codigoPostal>?</ns:codigoPostal>\r
+               <!--Optional:-->\r
+               <ns:cantidadHabitantes>?</ns:cantidadHabitantes>\r
+               <!--Optional:-->\r
+               <ns:tipoTransporte>?</ns:tipoTransporte>\r
+            </ns:listaNorte>\r
+            <!--Zero or more repetitions:-->\r
+            <ns:listaSur>\r
+               <!--Optional:-->\r
+               <ns:nombreCiudad>?</ns:nombreCiudad>\r
+               <!--Optional:-->\r
+               <ns:codigoPostal>?</ns:codigoPostal>\r
+               <!--Optional:-->\r
+               <ns:cantidadHabitantes>?</ns:cantidadHabitantes>\r
+               <!--Optional:-->\r
+               <ns:tipoTransporte>?</ns:tipoTransporte>\r
+            </ns:listaSur>\r
+         </ns:ciudad>\r
+         <!--Optional:-->\r
+         <ns:comuna>\r
+            <!--Zero or more repetitions:-->\r
+            <ns:listaCentro>\r
+               <!--Optional:-->\r
+               <ns:nombreComuna>?</ns:nombreComuna>\r
+               <!--Optional:-->\r
+               <ns:poblacion>?</ns:poblacion>\r
+            </ns:listaCentro>\r
+         </ns:comuna>\r
+      </ns:lugaresVisitadosReq>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="lugaresVisitados"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="125cef90-048e-49cb-b62d-de336e60b3cc" port="8088" path="/mocklugaresVisitadosBinding" host="sentrapc3280" name="lugaresVisitadosBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="lugaresVisitados" id="b74732c8-8502-41a8-b92c-993cc303024b" interface="lugaresVisitadosBinding" operation="lugaresVisitados"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="06b864c5-b253-4e9b-977e-91c652e2a782" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:lugaresVisitadosResp>
+         <!--Optional:-->
+         <ns:ciudad>
+            <!--Zero or more repetitions:-->
+            <ns:listaNorte>
+               <!--Optional:-->
+               <ns:nombreCiudad>Santiago</ns:nombreCiudad>
+               <!--Optional:-->
+               <ns:codigoPostal>345475</ns:codigoPostal>
+               <!--Optional:-->
+               <ns:cantidadHabitantes>345678</ns:cantidadHabitantes>
+               <!--Optional:-->
+               <ns:tipoTransporte>Trenes,buses,taxi</ns:tipoTransporte>
+            </ns:listaNorte>
+            <!--Zero or more repetitions:-->
+            <ns:listaSur>
+               <!--Optional:-->
+               <ns:nombreCiudad>Limanes</ns:nombreCiudad>
+               <!--Optional:-->
+               <ns:codigoPostal>64758</ns:codigoPostal>
+               <!--Optional:-->
+               <ns:cantidadHabitantes>897756</ns:cantidadHabitantes>
+               <!--Optional:-->
+               <ns:tipoTransporte>buses,taxi</ns:tipoTransporte>
+            </ns:listaSur>
+         </ns:ciudad>
+         <!--Optional:-->
+         <ns:comuna>
+            <!--Zero or more repetitions:-->
+            <ns:listaCentro>
+               <!--Optional:-->
+               <ns:nombreComuna>los angeles</ns:nombreComuna>
+               <!--Optional:-->
+               <ns:poblacion>Los guillanes</ns:poblacion>
+            </ns:listaCentro>
+            <ns:listaCentro>
+               <!--Optional:-->
+               <ns:nombreComuna>lacota</ns:nombreComuna>
+               <!--Optional:-->
+               <ns:poblacion>San Martin</ns:poblacion>
+            </ns:listaCentro>
+         </ns:comuna>
+      </ns:lugaresVisitadosResp>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="lugaresVisitados"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

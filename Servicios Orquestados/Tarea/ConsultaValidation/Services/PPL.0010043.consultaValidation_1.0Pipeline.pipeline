@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="ConsultaValidation/Specifications/CONT.0010043.purchaseValidation_2.0"/>
+            <con:binding>
+                <con:name>purchaseValidationBinding</con:name>
+                <con:namespace>http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-N55fefe9b.N795c95bd.0.16c9b39265c.N7bf0">
+        <con:pipeline type="request" name="request-N55fefe9b.N795c95bd.0.16c9b39265c.N8000">
+            <con:stage id="_StageId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7c5b" name="Stage3">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7ffe" name="validarEntrada">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                </con:context>
+                <con:actions>
+                    <con2:validate>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7ffa</con1:id>
+                        <con2:schema ref="ConsultaValidation/Specifications/MSG.0010043.REQ.purchaseValidation_2.0"/>
+                        <con2:schemaElement xmlns:ns="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0">ns:purchaseValidationReq</con2:schemaElement>
+                        <con2:varName>body</con2:varName>
+                        <con2:location>
+                            <con1:xpathText>./ns:purchaseValidationReq</con1:xpathText>
+                        </con2:location>
+                    </con2:validate>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7ff9" name="validarCanal">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                </con:context>
+                <con:actions>
+                    <con2:ifThenElse>
+                        <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7f03</con1:id>
+                        <con2:case id="_BranchId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7f02">
+                            <con2:condition>
+                                <con1:xqueryText>($body/ns:purchaseValidationReq/ns:canal/text()) ne ('LQH')</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con2:wsCallout>
+                                    <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7eff</con1:id>
+                                    <con2:service ref="ObtenerLista/Services/SRV.0010044.ObtenerLista_1.0" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                    <con2:operation>obtenerLista</con2:operation>
+                                    <con2:request>
+                                        <con2:body wrapped="false">obtenerListaReq</con2:body>
+                                    </con2:request>
+                                    <con2:response>
+                                        <con2:body wrapped="false">obtenerListaResp</con2:body>
+                                    </con2:response>
+                                    <con2:requestTransform>
+                                        <con2:assign varName="obtenerListaReq">
+                                            <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7efc</con1:id>
+                                            <con2:expr>
+                                                <con1:xqueryTransform>
+                                                    <con1:resource ref="ConsultaValidation/Transformation/XQ.MSG.consultaValidation-obtenerLista.IN_1.0"/>
+                                                    <con1:param name="rutCliente">
+                                                        <con1:path>$body/ns:purchaseValidationReq/ns:rutCliente/text()</con1:path>
+                                                    </con1:param>
+                                                </con1:xqueryTransform>
+                                            </con2:expr>
+                                        </con2:assign>
+                                    </con2:requestTransform>
+                                    <con2:responseTransform/>
+                                </con2:wsCallout>
+                            </con2:actions>
+                        </con2:case>
+                        <con2:default/>
+                    </con2:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7f8b" name="PX-obtenerLista">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                </con:context>
+                <con:disabled>true</con:disabled>
+                <con:actions>
+                    <con2:wsCallout>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7f88</con1:id>
+                        <con2:service ref="ObtenerLista/Services/SRV.0010044.ObtenerLista_1.0" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con2:operation>obtenerLista</con2:operation>
+                        <con2:request>
+                            <con2:body wrapped="false">obtenerListaReq</con2:body>
+                        </con2:request>
+                        <con2:response>
+                            <con2:body wrapped="false">obtenerListaResp</con2:body>
+                        </con2:response>
+                        <con2:requestTransform>
+                            <con2:assign varName="obtenerListaReq">
+                                <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7f85</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="ConsultaValidation/Transformation/XQ.MSG.consultaValidation-obtenerLista.IN_1.0"/>
+                                        <con1:param name="rutCliente">
+                                            <con1:path>$body/ns:purchaseValidationReq/ns:rutCliente/text()</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                        </con2:requestTransform>
+                        <con2:responseTransform/>
+                    </con2:wsCallout>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7f1a" name="lugares_Visitados" errorHandler="error-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7e68">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://jm.peter.cl/NEG/obtenerLista/v/1.0"/>
+                    <con1:userNsDecl prefix="ns1" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                    <con1:userNsDecl prefix="ns3" namespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0"/>
+                </con:context>
+                <con:actions>
+                    <con2:ifThenElse>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7ee5</con1:id>
+                        <con2:case id="_BranchId-N55fefe9b.N795c95bd.0.16c9b39265c.N7ee4">
+                            <con2:condition>
+                                <con1:xqueryText>not(empty($obtenerListaResp/ns:ciudad[ns:listaNorte[ns:nombreCiudad/text()]]))</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con2:wsCallout>
+                                    <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e4e</con1:id>
+                                    <con2:service ref="LugaresVisitados/Services/SRV.0010043.lugaresVisitados_1.0" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                    <con2:operation>lugaresVisitados</con2:operation>
+                                    <con2:request>
+                                        <con2:body wrapped="false">lugaresVisitadosReq</con2:body>
+                                    </con2:request>
+                                    <con2:response>
+                                        <con2:body wrapped="false">lugaresVisitadosResp</con2:body>
+                                    </con2:response>
+                                    <con2:requestTransform>
+                                        <con2:assign varName="lugaresVisitadosReq">
+                                            <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e4b</con1:id>
+                                            <con2:expr>
+                                                <con1:xqueryTransform>
+                                                    <con1:resource ref="ObtenerLista/Transformation/XQ.MSG.obtenerLista-lugaresVisitadosIN_1.0"/>
+                                                    <con1:param name="obtenerListaResp">
+                                                        <con1:path>$obtenerListaResp</con1:path>
+                                                    </con1:param>
+                                                </con1:xqueryTransform>
+                                            </con2:expr>
+                                        </con2:assign>
+                                    </con2:requestTransform>
+                                    <con2:responseTransform>
+                                        <con2:ifThenElse>
+                                            <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7cfa</con1:id>
+                                            <con2:case id="_BranchId-N55fefe9b.N795c95bd.0.16c9b39265c.N7cf9">
+                                                <con2:condition>
+                                                    <con1:xqueryText>not(exists($lugaresVisitadosResp/node()))</con1:xqueryText>
+                                                </con2:condition>
+                                                <con2:actions>
+                                                    <con2:Error>
+                                                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7cc5</con1:id>
+                                                        <con2:errCode>02</con2:errCode>
+                                                        <con2:message>Lugares Visitados No Existen !</con2:message>
+                                                    </con2:Error>
+                                                </con2:actions>
+                                            </con2:case>
+                                            <con2:case id="_BranchId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7d95">
+                                                <con2:condition>
+                                                    <con1:xqueryText>fn:contains(fn-bea:serialize($body),'fault')</con1:xqueryText>
+                                                </con2:condition>
+                                                <con2:actions>
+                                                    <con2:Error>
+                                                        <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7d92</con1:id>
+                                                        <con2:errCode>07</con2:errCode>
+                                                    </con2:Error>
+                                                </con2:actions>
+                                            </con2:case>
+                                        </con2:ifThenElse>
+                                    </con2:responseTransform>
+                                </con2:wsCallout>
+                            </con2:actions>
+                        </con2:case>
+                        <con2:default>
+                            <con2:wsCallout>
+                                <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e48</con1:id>
+                                <con2:service ref="LugaresVisitados/Services/SRV.0010043.lugaresVisitados_1.0" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                <con2:operation>lugaresVisitados</con2:operation>
+                                <con2:request>
+                                    <con2:body wrapped="false">lugaresVisitadosReq1</con2:body>
+                                </con2:request>
+                                <con2:response>
+                                    <con2:body wrapped="false">lugaresVisitadosResp1</con2:body>
+                                </con2:response>
+                                <con2:requestTransform>
+                                    <con2:assign varName="lugaresVisitadosReq1">
+                                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e45</con1:id>
+                                        <con2:expr>
+                                            <con1:xqueryTransform>
+                                                <con1:resource ref="ConsultaValidation/Transformation/XQ.MSG.consultaValidation-lugaresVisitados.IN_1.0"/>
+                                                <con1:param name="rutCliente">
+                                                    <con1:path>$body/ns1:purchaseValidationReq/ns1:rutCliente/text()</con1:path>
+                                                </con1:param>
+                                            </con1:xqueryTransform>
+                                        </con2:expr>
+                                    </con2:assign>
+                                </con2:requestTransform>
+                                <con2:responseTransform>
+                                    <con2:ifThenElse>
+                                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7c90</con1:id>
+                                        <con2:case id="_BranchId-N55fefe9b.N795c95bd.0.16c9b39265c.N7c8f">
+                                            <con2:condition>
+                                                <con1:xqueryText>empty($lugaresVisitadosResp1/ns3:ciudad[ns3:listaNorte[ns3:nombreCiudad/text()]])</con1:xqueryText>
+                                            </con2:condition>
+                                            <con2:actions>
+                                                <con2:Error>
+                                                    <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7c5b</con1:id>
+                                                    <con2:errCode>03</con2:errCode>
+                                                    <con2:message>Error al llamar  a lugares visitados por rut !</con2:message>
+                                                </con2:Error>
+                                            </con2:actions>
+                                        </con2:case>
+                                        <con2:case id="_BranchId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7dcb">
+                                            <con2:condition>
+                                                <con1:xqueryText>fn:contains(fn-bea:serialize($body),'fault')</con1:xqueryText>
+                                            </con2:condition>
+                                            <con2:actions>
+                                                <con2:Error>
+                                                    <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7dc8</con1:id>
+                                                    <con2:errCode>08</con2:errCode>
+                                                </con2:Error>
+                                            </con2:actions>
+                                        </con2:case>
+                                    </con2:ifThenElse>
+                                </con2:responseTransform>
+                            </con2:wsCallout>
+                        </con2:default>
+                    </con2:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d34" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="getInfo">
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d33</con1:id>
+                        <con1:disabled>true</con1:disabled>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="ObtenerLista/Transformation/XQ.MSG.obtenerLista-lugaresVisitadosIN_1.0"/>
+                                <con1:param name="obtenerListaResp">
+                                    <con1:path>$obtenerListaResp</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d30" name="Stage2">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://jm.peter.cl/NEG/obtenerLista/v/1.0"/>
+                    <con1:userNsDecl prefix="ns2" namespace="http://jm.peter.cl/NEG/lugaresVisitados/v/1.0"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="verificar">
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d2f</con1:id>
+                        <con1:disabled>true</con1:disabled>
+                        <con2:expr>
+                            <con1:xqueryText>not(empty($obtenerListaResp/ns:ciudad[ns:listaNorte[ns:nombreCiudad/text()]]))</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e44" name="nacionalidad">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                    <con1:userNsDecl prefix="t0" namespace="http://TargetNamespace.com/RestReference_Operation1_response"/>
+                </con:context>
+                <con:actions>
+                    <con2:wsCallout>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e41</con1:id>
+                        <con2:service ref="Nacionalidad/Services/RestReference" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con2:operation>Operation1</con2:operation>
+                        <con2:request>
+                            <con2:body wrapped="false">nacionalidadReq</con2:body>
+                        </con2:request>
+                        <con2:response>
+                            <con2:body wrapped="false">nacionalidadResp</con2:body>
+                        </con2:response>
+                        <con2:requestTransform>
+                            <con2:assign varName="nacionalidadReq">
+                                <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7e3d</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="ConsultaValidation/Transformation/XQ.MSG.consultaValidation-nacionalidad.IN_1.0"/>
+                                        <con1:param name="rutCliente">
+                                            <con1:path>$body/ns:purchaseValidationReq/ns:rutCliente/text()</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                        </con2:requestTransform>
+                        <con2:responseTransform>
+                            <con2:ifThenElse>
+                                <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7c26</con1:id>
+                                <con2:case id="_BranchId-N55fefe9b.N795c95bd.0.16c9b39265c.N7c25">
+                                    <con2:condition>
+                                        <con1:xqueryText>empty($nacionalidadResp/t0:nacionalidadResp/t0:nacionalidad/text())</con1:xqueryText>
+                                    </con2:condition>
+                                    <con2:actions>
+                                        <con2:Error>
+                                            <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7bf1</con1:id>
+                                            <con2:errCode>04</con2:errCode>
+                                            <con2:message>Error en la nacionalidad !</con2:message>
+                                        </con2:Error>
+                                    </con2:actions>
+                                </con2:case>
+                            </con2:ifThenElse>
+                        </con2:responseTransform>
+                    </con2:wsCallout>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N55fefe9b.N795c95bd.0.16c9b39265c.N7fff">
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d6d" name="prepararRespuesta">
+                <con:context/>
+                <con:actions>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d6a</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="ConsultaValidation/Transformation/XQ.MSG.consultaValidation-OUT_1.0"/>
+                                <con1:param name="codigo">
+                                    <con1:path>'00'</con1:path>
+                                </con1:param>
+                                <con1:param name="glosa">
+                                    <con1:path>'Ejecucion exitosa'</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d68" name="validarSalida">
+                <con:context>
+                    <con1:userNsDecl prefix="ns" namespace="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0"/>
+                </con:context>
+                <con:actions>
+                    <con2:validate>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7d6e</con1:id>
+                        <con2:schema ref="ConsultaValidation/Specifications/MSG.0010043.RESP.purchaseValidation_2.0"/>
+                        <con2:schemaElement xmlns:ns="http://ws.wom.cl/WOM/NEG/ProductCatalog/purchaseValidation/v/2.0">ns:purchaseValidationResp</con2:schemaElement>
+                        <con2:varName>body</con2:varName>
+                        <con2:location>
+                            <con1:xpathText>$body/ns:purchaseValidationResp</con1:xpathText>
+                        </con2:location>
+                    </con2:validate>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N55fefe9b.N795c95bd.0.16c9b39265c.N7bf0">
+            <con:stage id="_StageId-N55fefe9b.N795c95bd.0.16c9b39265c.N7bef" name="error_Handler">
+                <con:comment/>
+                <con:context/>
+                <con:actions>
+                    <con2:ifThenElse>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7bba</con1:id>
+                        <con2:case id="_BranchId-N55fefe9b.N795c95bd.0.16c9b39265c.N7bb9">
+                            <con2:condition>
+                                <con1:xqueryText>xs:string($fault/ctx:errorCode) = ('02', '03', '04')</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con2:replace varName="body" contents-only="true">
+                                    <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7b80</con1:id>
+                                    <con2:expr>
+                                        <con1:xqueryTransform>
+                                            <con1:resource ref="ConsultaValidation/Transformation/XQ.MSG.consultaValidation-OUT_1.0"/>
+                                            <con1:param name="codigo">
+                                                <con1:path>'201'</con1:path>
+                                            </con1:param>
+                                            <con1:param name="glosa">
+                                                <con1:path>'Error en el Flujo'</con1:path>
+                                            </con1:param>
+                                        </con1:xqueryTransform>
+                                    </con2:expr>
+                                </con2:replace>
+                            </con2:actions>
+                        </con2:case>
+                    </con2:ifThenElse>
+                    <con1:reply>
+                        <con1:id>_ActionId-N55fefe9b.N795c95bd.0.16c9b39265c.N7b4a</con1:id>
+                    </con1:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7e68">
+            <con:stage id="_StageId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7e67" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con2:ifThenElse>
+                        <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7d5b</con1:id>
+                        <con2:case id="_BranchId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7d5a">
+                            <con2:condition>
+                                <con1:xqueryText>data($fault/ctx:errorCode)="OSB-380000" or xs:string($fault/ctx:errorCode) = ('07', '08')</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con1:resume>
+                                    <con1:id>_ActionId-N55fefe9b.N5ec08fb0.0.16caa5eaccb.N7cf5</con1:id>
+                                </con1:resume>
+                            </con2:actions>
+                        </con2:case>
+                    </con2:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-N55fefe9b.N795c95bd.0.16c9b39265c.N8000</con:request>
+                <con:response>response-N55fefe9b.N795c95bd.0.16c9b39265c.N7fff</con:response>
+            </con:pipeline-node>
+        </con:flow>
+        <con:partner-links/>
+    </con:router>
+</con:pipelineEntry>
